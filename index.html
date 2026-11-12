@@ -209,6 +209,14 @@ header .logo .lg-d{position:absolute;left:0;top:0;opacity:0}
 header.s .logo .lg-l{opacity:0}header.s .logo .lg-d{opacity:1}
 body.mo header .logo .lg-l{opacity:1!important}body.mo header .logo .lg-d{opacity:0!important}
 header .burger span{transition:background-color .45s,box-shadow .45s,transform .4s,opacity .3s}
+
+/* v6: extend blur up under the iPhone status bar */
+.pblur{top:-120px!important;height:calc(250px + env(safe-area-inset-top,0px))!important}
+@media(max-width:900px){.pblur{height:calc(216px + env(safe-area-inset-top,0px))!important}}
+.pblur i:nth-child(1){-webkit-mask:linear-gradient(#000 0,#000 78%,transparent 100%);mask:linear-gradient(#000 0,#000 78%,transparent 100%)}
+.pblur i:nth-child(2){-webkit-mask:linear-gradient(#000 0,#000 66%,transparent 88%);mask:linear-gradient(#000 0,#000 66%,transparent 88%)}
+.pblur i:nth-child(3){-webkit-mask:linear-gradient(#000 0,#000 56%,transparent 76%);mask:linear-gradient(#000 0,#000 56%,transparent 76%)}
+.pblur i:nth-child(4){-webkit-mask:linear-gradient(#000 0,#000 48%,transparent 66%);mask:linear-gradient(#000 0,#000 48%,transparent 66%)}
 </style>
 </head>
 <body>
