@@ -186,6 +186,29 @@ body.mo header .hlang{display:none}
 
 header:not(.s) .hlang{background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 header.s .hlang{background:rgba(255,255,255,.6)}
+
+/* v5: same progressive blur on photo and on page, no bar/line; iPhone 17 Pro tuning */
+body::before{display:none!important}
+@media(max-width:900px){
+ header,header.s{background:transparent!important;box-shadow:none!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding-block:8px!important;padding-left:max(18px,env(safe-area-inset-left,0px))!important;padding-right:max(14px,env(safe-area-inset-right,0px))!important;transition:color .45s cubic-bezier(.4,0,.2,1)!important}
+ .logo .lg,header.s .logo .lg{height:44px!important}
+ .logo{filter:none!important}
+ .pblur{height:calc(96px + env(safe-area-inset-top,0px))}
+ /* soft fade so text below dissolves smoothly, no edge */
+ .pblur::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(250,250,246,.0),rgba(250,250,246,0));transition:background .45s}
+ body.hs .pblur::after{background:linear-gradient(rgba(250,250,246,.55) 0,rgba(250,250,246,.35) 45%,rgba(250,250,246,0) 100%)}
+ header .hlang{padding:8px 14px;font-size:14px;transition:background .45s,border-color .45s,color .45s}
+ header:not(.s) .hlang,header.s .hlang{-webkit-backdrop-filter:none;backdrop-filter:none}
+ header.s .hlang{background:transparent;border-color:rgba(22,22,22,.85)}
+ .burger{width:44px;height:44px}
+}
+/* smooth logo swap (crossfade instead of jump) */
+header .logo{position:relative;display:block}
+header .logo .lg-l,header .logo .lg-d{display:block!important;transition:opacity .45s cubic-bezier(.4,0,.2,1)}
+header .logo .lg-d{position:absolute;left:0;top:0;opacity:0}
+header.s .logo .lg-l{opacity:0}header.s .logo .lg-d{opacity:1}
+body.mo header .logo .lg-l{opacity:1!important}body.mo header .logo .lg-d{opacity:0!important}
+header .burger span{transition:background-color .45s,box-shadow .45s,transform .4s,opacity .3s}
 </style>
 </head>
 <body>
@@ -280,7 +303,7 @@ document.querySelectorAll('.row[data-img]').forEach(function(r){
  r.addEventListener('mousemove',function(e){x=e.clientX+40;y=e.clientY});
  r.addEventListener('mouseleave',function(){on=false;pk.classList.remove('on')})});
 })();
-var hd=document.getElementById('hd');function onS(){hd.classList.toggle('s',window.scrollY>((document.querySelector('.hero')||{}).offsetHeight||600)-70)}onS();addEventListener('scroll',onS,{passive:true});
+var hd=document.getElementById('hd');function onS(){var on=window.scrollY>((document.querySelector('.hero')||{}).offsetHeight||600)-70;hd.classList.toggle('s',on);document.body.classList.toggle('hs',on)}onS();addEventListener('scroll',onS,{passive:true});
 window.__teShow=function(){show(cur)};
 var sl=[].slice.call(document.querySelectorAll('.sl')),cur=0,n=sl.length;
 function show(i){cur=(i+n)%n;sl.forEach(function(s,k){var p=k-cur;if(p>1)p-=n;if(p<-1)p+=n;s.dataset.p=p});var d=TE.car()[cur];document.getElementById('cn').textContent=d[0];document.getElementById('cp').textContent=d[1];document.getElementById('ci').textContent=TE.msg().img(cur+1,n)}
