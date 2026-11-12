@@ -152,13 +152,47 @@ header:not(.s) .nav a,header:not(.s) .burger{text-shadow:0 1px 10px rgba(0,0,0,.
 body.mo .pblur{display:none}
 
 @media(min-width:901px){.burger,.mb{display:none!important}}
+/* mobile header + burger */
+.burger{display:none;pointer-events:auto;position:relative;z-index:60;width:44px;height:44px;border:0;background:none;color:inherit;cursor:pointer;align-self:center}
+.burger span{position:absolute;left:11px;right:11px;height:1.5px;background:currentColor;border-radius:2px;transition:transform .45s cubic-bezier(.7,0,.2,1),opacity .3s,top .45s cubic-bezier(.7,0,.2,1)}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+body.mo .burger span:nth-child(1){top:21px;transform:rotate(45deg)}body.mo .burger span:nth-child(2){opacity:0}body.mo .burger span:nth-child(3){top:21px;transform:rotate(-45deg)}
+.mm{position:fixed;inset:0;z-index:55;background:radial-gradient(120% 80% at 50% 0%,#241E16,#15120E 70%);color:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:100px max(24px,env(safe-area-inset-left,0px)) calc(32px + env(safe-area-inset-bottom,0px));animation:mmin .5s cubic-bezier(.7,0,.2,1)}
+@keyframes mmin{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+.mm nav{display:flex;flex-direction:column;gap:4px}
+.mm nav a{display:flex;align-items:baseline;gap:16px;font-size:clamp(40px,11vw,64px);font-weight:500;letter-spacing:-.035em;line-height:1.12;padding-block:6px;border-bottom:1px solid rgba(201,164,95,.18)}
+.mm nav a i{font-style:normal;font-size:12px;letter-spacing:.2em;color:var(--gold)}
+.mm nav a:active,.mm nav a:hover{color:var(--gold2)}
+.mmf{margin-top:auto;font-size:14px;line-height:1.7;color:rgba(246,240,228,.65)}
+body.mo{overflow:hidden}body.mo header{z-index:70!important;color:var(--cream)!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@media(max-width:900px){
+ .burger{display:block}
+ header{align-items:center!important;padding-block:10px!important;background:rgba(21,18,14,.22)!important;-webkit-backdrop-filter:blur(8px) saturate(1.2)!important;backdrop-filter:blur(8px) saturate(1.2)!important}
+ header.s{background:rgba(246,240,228,.72)!important;-webkit-backdrop-filter:blur(12px) saturate(1.3)!important;backdrop-filter:blur(12px) saturate(1.3)!important}
+ .logo .lg,header.s .logo .lg{height:52px!important}
+ .logo{filter:drop-shadow(0 1px 6px rgba(0,0,0,.25))}header.s .logo,body.mo .logo{filter:none}
+ body.mo .logo{position:relative;z-index:60}
+}
+
+
+/* RP: burger + language pill on mobile */
+.burger{color:inherit}
+header .hlang{display:none;pointer-events:auto;align-self:center;margin-inline-start:auto;margin-inline-end:6px;padding:7px 12px;border:1px solid currentColor;border-radius:999px;font-size:13px;line-height:1;color:inherit;background:transparent}
+@media(max-width:900px){header .hlang{display:inline-block}header{gap:10px}
+ header:not(.s) .burger span{box-shadow:0 1px 6px rgba(0,0,0,.25)}}
+body.mo header .hlang{display:none}
+@media(min-width:901px){.burger,.mb{display:none!important}}
+.mm{background:#121212!important}
+
+header:not(.s) .hlang{background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+header.s .hlang{background:rgba(255,255,255,.6)}
 </style>
 </head>
 <body>
 
 
 <div class="pblur" aria-hidden="true"><i></i><i></i><i></i><i></i></div><header class="w" id="hd"><a class="logo" href="#top" aria-label="Right Properties home"><img class="lg lg-l" src="img/logo-light.png" alt="Right Properties" width="760" height="160"><img class="lg lg-d" src="img/logo-dark.png" alt="" width="760" height="160"></a>
-<nav class="nav" aria-label="Main"><a href="#res">Properties</a><a href="#svc">Services</a><a href="#team">About</a><a href="#ct">Contact</a><a href="#" data-lang-toggle><span class="lang-t" lang="ar">العربية</span></a></nav><button class="burger" id="bg" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><span></span><span></span><span></span></button></header><div class="mm" id="mm" hidden role="dialog" aria-modal="true" aria-label="Menu"><nav aria-label="Mobile"><a href="#res"><i>01</i>Properties</a><a href="#svc"><i>02</i>Services</a><a href="#team"><i>03</i>About</a><a href="#ct"><i>04</i>Contact</a><a href="#" data-lang-toggle><i>05</i><span class="lang-t" lang="ar">العربية</span></a></nav><p class="mmf">info@rp-dubai.com<br>+971 50 728 4840</p></div>
+<nav class="nav" aria-label="Main"><a href="#res">Properties</a><a href="#svc">Services</a><a href="#team">About</a><a href="#ct">Contact</a><a href="#" data-lang-toggle><span class="lang-t" lang="ar">العربية</span></a></nav><a href="#" class="hlang" data-lang-toggle><span class="lang-t" lang="ar">العربية</span></a><button class="burger" id="bg" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><span></span><span></span><span></span></button></header><div class="mm" id="mm" hidden role="dialog" aria-modal="true" aria-label="Menu"><nav aria-label="Mobile"><a href="#res"><i>01</i>Properties</a><a href="#svc"><i>02</i>Services</a><a href="#team"><i>03</i>About</a><a href="#ct"><i>04</i>Contact</a><a href="#" data-lang-toggle><i>05</i><span class="lang-t" lang="ar">العربية</span></a></nav><p class="mmf">info@rp-dubai.com<br>+971 50 728 4840</p></div>
 
 <main id="top">
 <section class="hero"><img id="himg" src="img/hero.jpg" alt="Modern residences framed by palm trees in Dubai" style="object-position:50% 60%">
