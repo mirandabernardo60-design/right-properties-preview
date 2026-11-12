@@ -138,16 +138,26 @@ footer{background:#121212!important}
 [dir=rtl] .comm li:before{margin-right:0;margin-left:10px}
 [dir=rtl] .row:hover h3:after{left:0;right:0}
 
-/* header: frosted blur at the top too (like Phantom) */
-header:not(.s){background:rgba(20,20,20,.12)!important;-webkit-backdrop-filter:blur(18px) saturate(1.15)!important;backdrop-filter:blur(18px) saturate(1.15)!important;box-shadow:0 1px 0 rgba(255,255,255,.12)}
-header:not(.s) .nav a,header:not(.s) .burger{text-shadow:0 1px 8px rgba(0,0,0,.25)}
-body.mo header{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:transparent!important}
+
+/* Phantom-style progressive blur behind the header: no bar, no tint */
+header,header.s,header:not(.s){background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.pblur{position:fixed;left:0;right:0;top:0;height:calc(130px + env(safe-area-inset-top,0px));z-index:39;pointer-events:none}
+.pblur i{position:absolute;inset:0}
+.pblur i:nth-child(1){-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);-webkit-mask:linear-gradient(#000 0,#000 70%,transparent 100%);mask:linear-gradient(#000 0,#000 70%,transparent 100%)}
+.pblur i:nth-child(2){-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);-webkit-mask:linear-gradient(#000 0,#000 50%,transparent 80%);mask:linear-gradient(#000 0,#000 50%,transparent 80%)}
+.pblur i:nth-child(3){-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask:linear-gradient(#000 0,#000 30%,transparent 60%);mask:linear-gradient(#000 0,#000 30%,transparent 60%)}
+.pblur i:nth-child(4){-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);-webkit-mask:linear-gradient(#000 0,transparent 40%);mask:linear-gradient(#000 0,transparent 40%)}
+header .nav a{text-shadow:none}
+header:not(.s) .nav a,header:not(.s) .burger{text-shadow:0 1px 10px rgba(0,0,0,.28)}
+body.mo .pblur{display:none}
+
+@media(min-width:901px){.burger,.mb{display:none!important}}
 </style>
 </head>
 <body>
 
 
-<header class="w" id="hd"><a class="logo" href="#top" aria-label="Right Properties home"><img class="lg lg-l" src="img/logo-light.png" alt="Right Properties" width="760" height="160"><img class="lg lg-d" src="img/logo-dark.png" alt="" width="760" height="160"></a>
+<div class="pblur" aria-hidden="true"><i></i><i></i><i></i><i></i></div><header class="w" id="hd"><a class="logo" href="#top" aria-label="Right Properties home"><img class="lg lg-l" src="img/logo-light.png" alt="Right Properties" width="760" height="160"><img class="lg lg-d" src="img/logo-dark.png" alt="" width="760" height="160"></a>
 <nav class="nav" aria-label="Main"><a href="#res">Properties</a><a href="#svc">Services</a><a href="#team">About</a><a href="#ct">Contact</a><a href="#" data-lang-toggle><span class="lang-t" lang="ar">العربية</span></a></nav><button class="burger" id="bg" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><span></span><span></span><span></span></button></header><div class="mm" id="mm" hidden role="dialog" aria-modal="true" aria-label="Menu"><nav aria-label="Mobile"><a href="#res"><i>01</i>Properties</a><a href="#svc"><i>02</i>Services</a><a href="#team"><i>03</i>About</a><a href="#ct"><i>04</i>Contact</a><a href="#" data-lang-toggle><i>05</i><span class="lang-t" lang="ar">العربية</span></a></nav><p class="mmf">info@rp-dubai.com<br>+971 50 728 4840</p></div>
 
 <main id="top">
@@ -236,7 +246,7 @@ document.querySelectorAll('.row[data-img]').forEach(function(r){
  r.addEventListener('mousemove',function(e){x=e.clientX+40;y=e.clientY});
  r.addEventListener('mouseleave',function(){on=false;pk.classList.remove('on')})});
 })();
-var hd=document.getElementById('hd');function onS(){hd.classList.toggle('s',window.scrollY>40)}onS();addEventListener('scroll',onS,{passive:true});
+var hd=document.getElementById('hd');function onS(){hd.classList.toggle('s',window.scrollY>((document.querySelector('.hero')||{}).offsetHeight||600)-70)}onS();addEventListener('scroll',onS,{passive:true});
 window.__teShow=function(){show(cur)};
 var sl=[].slice.call(document.querySelectorAll('.sl')),cur=0,n=sl.length;
 function show(i){cur=(i+n)%n;sl.forEach(function(s,k){var p=k-cur;if(p>1)p-=n;if(p<-1)p+=n;s.dataset.p=p});var d=TE.car()[cur];document.getElementById('cn').textContent=d[0];document.getElementById('cp').textContent=d[1];document.getElementById('ci').textContent=TE.msg().img(cur+1,n)}
